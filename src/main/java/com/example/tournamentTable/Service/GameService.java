@@ -2,8 +2,13 @@ package com.example.tournamentTable.Service;
 
 import com.example.tournamentTable.Entity.Game;
 import com.example.tournamentTable.Entity.Team;
+import com.example.tournamentTable.Exception.GamesNotFoundException;
 import com.example.tournamentTable.Repository.GameRepository;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class GameService {
@@ -30,5 +35,19 @@ public class GameService {
         else{
             team2.setTeamScore(team2.getTeamScore() + 3);
         }
+    }
+
+    public List<Game> getGamesForTeam(String title){
+        Team team = teamService.getTeam(title);
+        UUID teamId = team.getId();
+        List<Game> games = gameRepository.findAllGamesForTeam(teamId);
+        if(games.isEmpty()){
+            throw new GamesNotFoundException("Games are not found");
+        }
+        return games;
+    }
+
+    public List<Game> getAllGames(){
+        return gameRepository.findAll();
     }
 }

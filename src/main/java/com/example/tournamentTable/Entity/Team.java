@@ -23,8 +23,5 @@ public class Team {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "team")
     private List<Player> players;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "game")
-    private List<Game> games;
-
     private int teamScore;
 }
