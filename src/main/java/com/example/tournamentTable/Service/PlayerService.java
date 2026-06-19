@@ -4,6 +4,7 @@ import com.example.tournamentTable.Entity.Player;
 import com.example.tournamentTable.Exception.PlayerNotFoundException;
 import com.example.tournamentTable.Repository.PlayerRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
@@ -15,6 +16,7 @@ public class PlayerService {
         this.playerRepository = playerRepository;
     }
 
+    @Transactional(readOnly = true)
     public Player getPlayer(String name){
         Optional<Player> exists = playerRepository.findByName(name);
         if(exists.isPresent()){
@@ -25,4 +27,14 @@ public class PlayerService {
         }
     }
 
+    @Transactional
+    public void addPlayer(String name){
+        Player player = new Player(name);
+        playerRepository.save(player);
+    }
+
+    @Transactional
+    public void deletePlayer(String name){
+        //TODO сделать логику удаления игрока внутри команды и в целом удаления
+    }
 }

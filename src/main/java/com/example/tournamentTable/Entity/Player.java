@@ -21,4 +21,8 @@ public class Player {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "team_id")
     private Team team;
+
+    public Player(String name){
+        this.name = name;
+    }
 }

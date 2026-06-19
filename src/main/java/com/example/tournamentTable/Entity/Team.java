@@ -20,8 +20,14 @@ public class Team {
 
     private String title;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "team")
+    @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, mappedBy = "team")
     private List<Player> players;
 
     private int teamScore;
+
+    public Team(String title){
+        this.title = title;
+        this.players = new ArrayList<>();
+        this.teamScore = 0;
+    }
 }
