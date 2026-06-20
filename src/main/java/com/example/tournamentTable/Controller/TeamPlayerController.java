@@ -1,17 +1,13 @@
 package com.example.tournamentTable.Controller;
 
 import com.example.tournamentTable.DTO.PlayerTeamDTO;
-import com.example.tournamentTable.DTO.TeamDTO;
 import com.example.tournamentTable.DTO.TransferDTO;
 import com.example.tournamentTable.Service.TeamPlayerService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PatchMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
@@ -33,6 +29,12 @@ public class TeamPlayerController {
     @PatchMapping("/private/update/transfer")
     public ResponseEntity<Void> transferPlayer(@Valid @RequestBody TransferDTO transferDTO){
         teamPlayerService.transferPlayer(transferDTO.getName(), transferDTO.getTeam1(), transferDTO.getTeam2());
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @DeleteMapping("/private/delete/player")
+    public ResponseEntity<Void> deletePlayer(@Valid @RequestBody PlayerTeamDTO playerTeamDTO){
+        teamPlayerService.deletePlayer(playerTeamDTO.getName(), playerTeamDTO.getTitle());
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }

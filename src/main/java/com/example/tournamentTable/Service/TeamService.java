@@ -1,9 +1,7 @@
 package com.example.tournamentTable.Service;
 
-import com.example.tournamentTable.Entity.Player;
 import com.example.tournamentTable.Entity.Team;
 import com.example.tournamentTable.Exception.TeamAlreadyExistsException;
-import com.example.tournamentTable.Exception.TeamHaveGamesException;
 import com.example.tournamentTable.Exception.TeamNotFoundException;
 import com.example.tournamentTable.Repository.TeamRepository;
 import lombok.RequiredArgsConstructor;

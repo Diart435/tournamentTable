@@ -1,8 +1,8 @@
 package com.example.tournamentTable.Service;
 
 import com.example.tournamentTable.Entity.Player;
+import com.example.tournamentTable.Exception.PlayerAlreadyExistsException;
 import com.example.tournamentTable.Exception.PlayerNotFoundException;
-import com.example.tournamentTable.Mapper.PlayerMapper;
 import com.example.tournamentTable.Repository.PlayerRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -27,7 +27,7 @@ public class PlayerService {
         }
     }
 
-    @Transactional
+    @Transactional(readOnly = true)
     public List<Player> getAllPlayers(){
         List<Player> playersWithTeam = playerRepository.findAllWithTeam();
         List<Player> playersWithoutTeam = playerRepository.findAllWithoutTeam();
@@ -37,13 +37,12 @@ public class PlayerService {
 
     @Transactional
     public void addPlayer(String name){
-        Player player = new Player(name);
-        playerRepository.save(player);
-    }
-
-    @Transactional
-    public void deletePlayer(String name){
-
-        //TODO сделать логику удаления игрока внутри команды и в целом удаления
+        if(!playerRepository.existsByName(name)) {
+            Player player = new Player(name);
+            playerRepository.save(player);
+        }
+        else{
+            throw new PlayerAlreadyExistsException("Player already exists");
+        }
     }
 }

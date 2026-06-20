@@ -1,4 +1,4 @@
-package com.example.tournamentTable.Config;
+package com.example.tournamentTable.Configuration;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

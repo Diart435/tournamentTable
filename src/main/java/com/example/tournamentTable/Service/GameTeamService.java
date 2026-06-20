@@ -39,26 +39,17 @@ public class GameTeamService {
     }
 
     @Transactional
-    public boolean gamesExsists(Team team){
-        return gameRepository.existsByTeam(team.getId());
-    }
-
-    @Transactional
     public List<Game> getGamesForTeam(String title){
         Team team = teamService.getTeam(title);
         UUID teamId = team.getId();
-        if(gamesExsists(team)) {
-            List<Game> games = gameRepository.findAllGamesForTeam(teamId);
-            if (games.isEmpty()) {
-                throw new GamesNotFoundException("Games are not found");
-            }
-            return games;
+        List<Game> games = gameRepository.findAllGamesForTeam(teamId);
+        if (games.isEmpty()) {
+            throw new GamesNotFoundException("Games are not found");
         }
-        else{
-            return List.of();
-        }
+        return games;
     }
 
+    @Transactional(readOnly = true)
     public List<Game> getAllGames(){
         return gameRepository.findAll();
     }
@@ -66,7 +57,7 @@ public class GameTeamService {
     @Transactional
     public void deleteTeam(String title){
         Team team = teamService.getTeam(title);
-        if(!gamesExsists(team)) {
+        if(!gameRepository.existsByTeam(team.getId())) {
             teamRepository.delete(team);
         }
         else{
