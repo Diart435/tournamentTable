@@ -1,5 +1,6 @@
 package com.example.tournamentTable.Configuration;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -18,6 +19,12 @@ import org.springframework.security.web.SecurityFilterChain;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
+
+    @Value("${SECURITY_ADMIN_LOGIN}")
+    private String login;
+
+    @Value("${SECURITY_ADMIN_PASSWORD}")
+    private String password;
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -41,8 +48,8 @@ public class SecurityConfig {
     @Bean
     public UserDetailsService userDetailsService() {
         UserDetails admin = User.builder()
-                .username("admin")
-                .password(passwordEncoder().encode("admin"))
+                .username(login)
+                .password(passwordEncoder().encode(password))
                 .roles("ADMIN")
                 .build();
 
