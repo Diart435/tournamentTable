@@ -12,6 +12,7 @@ import java.util.UUID;
 public interface GameRepository extends JpaRepository<Game, UUID> {
     @Query("SELECT g FROM Game g WHERE g.team1.id = :teamId OR g.team2.id = :teamId")
     List<Game> findAllGamesForTeam(@Param("teamId") UUID teamId);
-
     List<Game> findAll();
+    @Query("SELECT EXISTS (SELECT 1 FROM Game g WHERE g.team1.id = :teamId OR g.team2.id = :teamId)")
+    boolean existsByTeam(@Param("teamId") UUID teamId);
 }

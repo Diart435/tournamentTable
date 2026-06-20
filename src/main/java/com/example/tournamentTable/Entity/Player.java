@@ -1,6 +1,7 @@
 package com.example.tournamentTable.Entity;
 
 import jakarta.persistence.*;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -11,6 +12,7 @@ import java.util.UUID;
 @NoArgsConstructor
 @Setter
 @Getter
+@EqualsAndHashCode
 public class Player {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)

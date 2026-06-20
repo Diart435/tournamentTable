@@ -40,20 +40,13 @@ public class SecurityConfig {
 
     @Bean
     public UserDetailsService userDetailsService() {
-        UserDetails guest = User.builder()
-                .username("guest")
-                .password(passwordEncoder().encode("guest"))
-                .roles("GUEST")
-                .build();
-
-        // ADMIN — полный доступ
         UserDetails admin = User.builder()
                 .username("admin")
                 .password(passwordEncoder().encode("admin"))
                 .roles("ADMIN")
                 .build();
 
-        return new InMemoryUserDetailsManager(guest, admin);
+        return new InMemoryUserDetailsManager(admin);
     }
 
     @Bean

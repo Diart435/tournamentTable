@@ -1,11 +1,13 @@
 package com.example.tournamentTable.Controller;
 
 import com.example.tournamentTable.DTO.GameDTO;
+import com.example.tournamentTable.DTO.GameResponse;
 import com.example.tournamentTable.Entity.Game;
-import com.example.tournamentTable.Entity.Team;
+import com.example.tournamentTable.Mapper.GameMapper;
 import com.example.tournamentTable.Service.GameService;
-import com.example.tournamentTable.Service.TeamService;
+import com.example.tournamentTable.Service.GameTeamService;
 import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,17 +18,16 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-public class GameController {
-    private final GameService gameService;
-
-    public GameController(GameService gameService){
-        this.gameService = gameService;
-    }
+@RequiredArgsConstructor
+public class GameTeamController {
+    private final GameTeamService gameService;
+    private final GameMapper gameMapper;
 
     @GetMapping("/public/get/games")
-    public ResponseEntity<List<Game>> getGames(){
+    public ResponseEntity<List<GameResponse>> getGames(){
         List<Game> games = gameService.getAllGames();
-        return ResponseEntity.ok(games);
+        List<GameResponse> gameResponses = games.stream().map(gameMapper::toGameResponse).toList();
+        return ResponseEntity.ok(gameResponses);
     }
 
     @PostMapping("/private/add/game")

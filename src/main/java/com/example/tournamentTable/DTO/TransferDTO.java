@@ -4,10 +4,11 @@ import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 
 @Data
-public class PlayerToTeamDTO {
+public class TransferDTO {
     @NotBlank
     private String name;
-
     @NotBlank
-    private String title;
+    private String team1;
+    @NotBlank
+    private String team2;
 }

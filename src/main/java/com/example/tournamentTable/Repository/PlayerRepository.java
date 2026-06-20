@@ -10,6 +10,8 @@ import java.util.UUID;
 
 public interface PlayerRepository extends JpaRepository<Player, UUID> {
     Optional<Player> findByName(String name);
+    @Query("SELECT p FROM Player p WHERE p.team IS NOT NULL")
+    List<Player> findAllWithTeam();
     @Query("SELECT p FROM Player p WHERE p.team IS NULL")
     List<Player> findAllWithoutTeam();
     boolean existsByName(String name);

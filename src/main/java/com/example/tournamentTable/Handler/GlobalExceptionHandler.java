@@ -13,7 +13,7 @@ import java.util.Map;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
-    @ExceptionHandler({PlayerNotFoundException.class, TeamNotFoundException.class, GamesNotFoundException.class})
+    @ExceptionHandler({PlayerNotFoundException.class, TeamNotFoundException.class, GamesNotFoundException.class, PlayerNotInTeamException.class})
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public ResponseEntity<?> ErrorNotFound(RuntimeException e){
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
@@ -27,7 +27,7 @@ public class GlobalExceptionHandler {
         return errors;
     }
 
-    @ExceptionHandler({PlayerAlreadyExistsException.class, TeamAlreadyExistsException.class})
+    @ExceptionHandler({PlayerAlreadyExistsException.class, TeamAlreadyExistsException.class, TeamHaveGamesException.class})
     @ResponseStatus(HttpStatus.CONFLICT)
     public ResponseEntity<?> ErrorAlreadyExists(RuntimeException e){
         return ResponseEntity.status(HttpStatus.CONFLICT).body(e.getMessage());
