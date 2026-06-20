@@ -46,8 +46,7 @@ public class TeamPlayerService {
         Player player = playerService.getPlayer(name);
         Team fromTeam = teamService.getTeam(team1);
         Team toTeam = teamService.getTeam(team2);
-
-        fromTeam.getPlayers().remove(player);
+        removeFromTeam(player, fromTeam);
         player.setTeam(toTeam);
         toTeam.getPlayers().add(player);
     }
