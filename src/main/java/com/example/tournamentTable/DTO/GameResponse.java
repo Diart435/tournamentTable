@@ -1,6 +1,5 @@
 package com.example.tournamentTable.DTO;
 
-import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 
 import java.time.LocalDate;
