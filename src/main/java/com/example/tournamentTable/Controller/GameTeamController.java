@@ -63,11 +63,28 @@ public class GameTeamController {
     )
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "Game created"),
-            @ApiResponse(responseCode = "404", description = "Team is not found")
+            @ApiResponse(responseCode = "404", description = "Team is not found"),
+            @ApiResponse(responseCode = "409", description = "Team have a game with a clone")
     })
     @PostMapping("/private/add/game")
     public ResponseEntity<Void> addGame(@Valid @RequestBody GameDTO gameDTO) {
-        gameTeamService.addGame(gameDTO.getTeam1(), gameDTO.getTeam2(), gameDTO.getScore1(), gameDTO.getScore2());
+        gameTeamService.addGame(gameDTO.getTeam1(), gameDTO.getTeam2(), gameDTO.getScore1(), gameDTO.getScore2(), gameDTO.getSeason(), gameDTO.getMatchDate());
         return new ResponseEntity<>(HttpStatus.CREATED);
+    }
+
+    @Operation(
+            summary = "Get a game on date",
+            description = "Returns a list of games"
+    )
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "List of games on date"),
+            @ApiResponse(responseCode = "400", description = "Invalid date"),
+            @ApiResponse(responseCode = "404", description = "Games not found")
+    })
+    @GetMapping("/public/get/games/{date}")
+    public ResponseEntity<List<GameResponse>> getGamesDate(@PathVariable String date){
+        List<Game> games = gameTeamService.getGamesDate(date);
+        List<GameResponse> gameResponses = games.stream().map(gameMapper::toGameResponse).toList();
+        return ResponseEntity.ok(gameResponses);
     }
 }

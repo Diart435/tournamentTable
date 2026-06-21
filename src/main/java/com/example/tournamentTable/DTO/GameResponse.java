@@ -1,7 +1,9 @@
 package com.example.tournamentTable.DTO;
 
+import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Data
@@ -12,4 +14,6 @@ public class GameResponse {
     private int score2;
     private List<String> playersTeam1;
     private List<String> playersTeam2;
+    private String season;
+    private LocalDate matchDate;
 }

@@ -2,6 +2,7 @@ package com.example.tournamentTable.Service;
 
 import com.example.tournamentTable.Entity.Game;
 import com.example.tournamentTable.Entity.Team;
+import com.example.tournamentTable.Exception.GameWithCloneException;
 import com.example.tournamentTable.Exception.GamesNotFoundException;
 import com.example.tournamentTable.Exception.TeamHaveGamesException;
 import com.example.tournamentTable.Repository.GameRepository;
@@ -10,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
 
@@ -21,20 +23,24 @@ public class GameTeamService {
     private final TeamService teamService;
 
     @Transactional
-    public void addGame(String title1, String title2, int score1, int score2){
-        Team team1 = teamService.getTeam(title1);
-        Team team2 = teamService.getTeam(title2);
-        Game game = new Game(team1, team2, score1, score2);
-        gameRepository.save(game);
-        if(score1 == score2){
-            team1.setTeamScore(team1.getTeamScore() + 1);
-            team2.setTeamScore(team2.getTeamScore() + 1);
+    public void addGame(String title1, String title2, int score1, int score2, String season, String date){
+        if(!title1.equals(title2)) {
+            Team team1 = teamService.getTeam(title1);
+            Team team2 = teamService.getTeam(title2);
+            LocalDate matchDate = LocalDate.parse(date);
+            Game game = new Game(team1, team2, score1, score2, season, matchDate);
+            gameRepository.save(game);
+            if (score1 == score2) {
+                team1.setTeamScore(team1.getTeamScore() + 1);
+                team2.setTeamScore(team2.getTeamScore() + 1);
+            } else if (score1 > score2) {
+                team1.setTeamScore(team1.getTeamScore() + 3);
+            } else {
+                team2.setTeamScore(team2.getTeamScore() + 3);
+            }
         }
-        else if(score1 > score2){
-            team1.setTeamScore(team1.getTeamScore() + 3);
-        }
-        else{
-            team2.setTeamScore(team2.getTeamScore() + 3);
+        else {
+            throw new GameWithCloneException("Team have a game with a clone");
         }
     }
 
@@ -62,6 +68,18 @@ public class GameTeamService {
         }
         else{
             throw new TeamHaveGamesException("Team have games");
+        }
+    }
+
+    @Transactional(readOnly = true)
+    public List<Game> getGamesDate(String date){
+        LocalDate matchDate = LocalDate.parse(date);
+        List<Game> games = gameRepository.findAllOnDate(matchDate);
+        if(games.isEmpty()){
+            throw new GamesNotFoundException("Games not found");
+        }
+        else{
+            return games;
         }
     }
 }

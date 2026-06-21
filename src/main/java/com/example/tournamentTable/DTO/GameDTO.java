@@ -14,4 +14,8 @@ public class GameDTO {
     private int score1;
     @NotNull
     private int score2;
+    @NotBlank
+    private String season;
+    @NotBlank
+    private String matchDate;
 }

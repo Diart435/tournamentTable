@@ -1,6 +1,7 @@
 package com.example.tournamentTable.Handler;
 
 import com.example.tournamentTable.Exception.*;
+import liquibase.exception.DateParseException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -8,6 +9,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import java.time.format.DateTimeParseException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -27,9 +29,15 @@ public class GlobalExceptionHandler {
         return errors;
     }
 
-    @ExceptionHandler({PlayerAlreadyExistsException.class, TeamAlreadyExistsException.class, TeamHaveGamesException.class})
+    @ExceptionHandler({PlayerAlreadyExistsException.class, TeamAlreadyExistsException.class, TeamHaveGamesException.class, GameWithCloneException.class})
     @ResponseStatus(HttpStatus.CONFLICT)
     public ResponseEntity<?> ErrorAlreadyExists(RuntimeException e){
         return ResponseEntity.status(HttpStatus.CONFLICT).body(e.getMessage());
+    }
+
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(DateTimeParseException.class)
+    public ResponseEntity<?> handleDateException(DateTimeParseException e){
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
     }
 }
