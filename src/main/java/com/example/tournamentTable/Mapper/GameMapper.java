@@ -16,6 +16,8 @@ public interface GameMapper {
     @Mapping(source = "team2", target = "team2", qualifiedByName = "teamToString")
     @Mapping(source = "team1", target = "playersTeam1", qualifiedByName = "teamToPlayerNames")
     @Mapping(source = "team2", target = "playersTeam2", qualifiedByName = "teamToPlayerNames")
+    @Mapping(source = "season", target = "season")
+    @Mapping(source = "matchDate", target = "matchDate")
     GameResponse toGameResponse(Game game);
 
     @Named("teamToString")

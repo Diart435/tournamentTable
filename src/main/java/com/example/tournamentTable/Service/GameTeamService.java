@@ -12,6 +12,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.List;
 import java.util.UUID;
 
@@ -21,13 +23,19 @@ public class GameTeamService {
     private final GameRepository gameRepository;
     private final TeamRepository teamRepository;
     private final TeamService teamService;
+    private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("dd-MM-yyyy");
 
     @Transactional
     public void addGame(String title1, String title2, int score1, int score2, String season, String date){
         if(!title1.equals(title2)) {
             Team team1 = teamService.getTeam(title1);
             Team team2 = teamService.getTeam(title2);
-            LocalDate matchDate = LocalDate.parse(date);
+            LocalDate matchDate;
+            try {
+                matchDate = LocalDate.parse(date, DATE_FORMATTER);
+            } catch (DateTimeParseException e) {
+                throw new DateTimeParseException("Invalid date format. Please use dd-MM-yyyy", date, 0);
+            }
             Game game = new Game(team1, team2, score1, score2, season, matchDate);
             gameRepository.save(game);
             if (score1 == score2) {
@@ -73,7 +81,12 @@ public class GameTeamService {
 
     @Transactional(readOnly = true)
     public List<Game> getGamesDate(String date){
-        LocalDate matchDate = LocalDate.parse(date);
+        LocalDate matchDate;
+        try {
+            matchDate = LocalDate.parse(date, DATE_FORMATTER);
+        } catch (DateTimeParseException e) {
+            throw new DateTimeParseException("Invalid date format. Please use dd-MM-yyyy", date, 0);
+        }
         List<Game> games = gameRepository.findAllOnDate(matchDate);
         if(games.isEmpty()){
             throw new GamesNotFoundException("Games not found");

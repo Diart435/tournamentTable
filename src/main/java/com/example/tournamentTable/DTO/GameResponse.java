@@ -1,5 +1,7 @@
 package com.example.tournamentTable.DTO;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import lombok.Builder;
 import lombok.Data;
 
 import java.time.LocalDate;
@@ -14,5 +16,6 @@ public class GameResponse {
     private List<String> playersTeam1;
     private List<String> playersTeam2;
     private String season;
+    @JsonFormat(pattern = "dd-MM-yyyy")
     private LocalDate matchDate;
 }

@@ -33,7 +33,6 @@ class TeamPlayerServiceTest {
 
     @Test
     void addPlayerToTeam_ShouldAddPlayerToTeam_WhenValid() {
-        // given
         String playerName = "Messi";
         String teamTitle = "FC Barcelona";
 
@@ -47,10 +46,8 @@ class TeamPlayerServiceTest {
         when(playerService.getPlayer(playerName)).thenReturn(player);
         when(teamService.getTeam(teamTitle)).thenReturn(team);
 
-        // when
         teamPlayerService.addPlayerToTeam(playerName, teamTitle);
 
-        // then
         assertTrue(team.getPlayers().contains(player));
         assertEquals(team, player.getTeam());
         verify(playerService, times(1)).getPlayer(playerName);
@@ -59,7 +56,6 @@ class TeamPlayerServiceTest {
 
     @Test
     void removeFromTeam_ShouldRemovePlayer_WhenPlayerInTeam() {
-        // given
         Player player = new Player("Messi");
         player.setId(UUID.randomUUID());
 
@@ -69,17 +65,14 @@ class TeamPlayerServiceTest {
         team.getPlayers().add(player);
         player.setTeam(team);
 
-        // when
         teamPlayerService.removeFromTeam(player, team);
 
-        // then
         assertFalse(team.getPlayers().contains(player));
         assertNull(player.getTeam());
     }
 
     @Test
     void removeFromTeam_ShouldThrowPlayerNotInTeamException_WhenPlayerNotInTeam() {
-        // given
         Player player = new Player("Messi");
         player.setId(UUID.randomUUID());
 
@@ -87,14 +80,12 @@ class TeamPlayerServiceTest {
         team.setId(UUID.randomUUID());
         team.setPlayers(new ArrayList<>());
 
-        // when & then
         assertThrows(PlayerNotInTeamException.class,
                 () -> teamPlayerService.removeFromTeam(player, team));
     }
 
     @Test
     void deletePlayerFromTeam_ShouldRemovePlayer_WhenValid() {
-        // given
         String playerName = "Messi";
         String teamTitle = "FC Barcelona";
 
@@ -110,17 +101,14 @@ class TeamPlayerServiceTest {
         when(playerService.getPlayer(playerName)).thenReturn(player);
         when(teamService.getTeam(teamTitle)).thenReturn(team);
 
-        // when
         teamPlayerService.deletePlayerFromTeam(playerName, teamTitle);
 
-        // then
         assertFalse(team.getPlayers().contains(player));
         assertNull(player.getTeam());
     }
 
     @Test
     void transferPlayer_ShouldTransferPlayer_WhenValid() {
-        // given
         String playerName = "Messi";
         String fromTeamTitle = "FC Barcelona";
         String toTeamTitle = "PSG";
@@ -142,10 +130,8 @@ class TeamPlayerServiceTest {
         when(teamService.getTeam(fromTeamTitle)).thenReturn(fromTeam);
         when(teamService.getTeam(toTeamTitle)).thenReturn(toTeam);
 
-        // when
         teamPlayerService.transferPlayer(playerName, fromTeamTitle, toTeamTitle);
 
-        // then
         assertFalse(fromTeam.getPlayers().contains(player));
         assertTrue(toTeam.getPlayers().contains(player));
         assertEquals(toTeam, player.getTeam());
@@ -153,7 +139,6 @@ class TeamPlayerServiceTest {
 
     @Test
     void deletePlayer_ShouldDeletePlayerFromTeam_WhenValid() {
-        // given
         String playerName = "Messi";
         String teamTitle = "FC Barcelona";
 
@@ -169,10 +154,8 @@ class TeamPlayerServiceTest {
         when(playerService.getPlayer(playerName)).thenReturn(player);
         when(teamService.getTeam(teamTitle)).thenReturn(team);
 
-        // when
         teamPlayerService.deletePlayer(playerName, teamTitle);
 
-        // then
         assertFalse(team.getPlayers().contains(player));
         assertNull(player.getTeam());
         verify(playerRepository, times(1)).delete(player);
