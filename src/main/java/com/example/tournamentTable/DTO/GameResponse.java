@@ -1,7 +1,6 @@
 package com.example.tournamentTable.DTO;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import lombok.Builder;
 import lombok.Data;
 
 import java.time.LocalDate;
