@@ -25,9 +25,21 @@ public class Team {
 
     private int teamScore;
 
+    private int matches;
+
+    private int wins;
+
+    private int losses;
+
+    private int draws;
+
     public Team(String title){
         this.title = title;
         this.players = new ArrayList<>();
         this.teamScore = 0;
+        this.matches = 0;
+        this.wins = 0;
+        this.losses = 0;
+        this.draws = 0;
     }
 }

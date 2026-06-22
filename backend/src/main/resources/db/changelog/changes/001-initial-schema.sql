@@ -1,7 +1,11 @@
 CREATE TABLE IF NOT EXISTS team (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     title VARCHAR(255) NOT NULL UNIQUE,
-    team_score INT NOT NULL DEFAULT 0
+    team_score INT NOT NULL DEFAULT 0,
+    matches INT NOT NULL DEFAULT 0,
+    wins INT NOT NULL DEFAULT 0,
+    losses INT NOT NULL DEFAULT 0,
+    draws INT NOT NULL DEFAULT 0
 );
 
 CREATE TABLE IF NOT EXISTS player (

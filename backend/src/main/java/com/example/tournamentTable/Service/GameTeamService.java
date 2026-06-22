@@ -41,11 +41,19 @@ public class GameTeamService {
             if (score1 == score2) {
                 team1.setTeamScore(team1.getTeamScore() + 1);
                 team2.setTeamScore(team2.getTeamScore() + 1);
+                team1.setDraws(team1.getDraws() + 1);
+                team2.setDraws(team2.getDraws() + 1);
             } else if (score1 > score2) {
                 team1.setTeamScore(team1.getTeamScore() + 3);
+                team1.setWins(team1.getWins() + 1);
+                team2.setLosses(team2.getLosses() + 1);
             } else {
                 team2.setTeamScore(team2.getTeamScore() + 3);
+                team2.setWins(team2.getWins() + 1);
+                team1.setLosses(team1.getLosses() + 1);
             }
+            team1.setMatches(team1.getMatches() + 1);
+            team2.setMatches(team2.getMatches() + 1);
         }
         else {
             throw new GameWithCloneException("Team have a game with a clone");
