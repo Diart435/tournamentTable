@@ -10,4 +10,5 @@ public class TeamResponse {
     private int wins;
     private int losses;
     private int draws;
+    private String[] players;
 }

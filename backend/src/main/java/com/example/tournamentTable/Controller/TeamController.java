@@ -40,6 +40,21 @@ public class TeamController {
     }
 
     @Operation(
+            summary = "Get a table of tournament",
+            description = "Returns a list of teams' results"
+    )
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "List of all teams"),
+            @ApiResponse(responseCode = "404", description = "Empty tournament's list")
+    })
+    @GetMapping("/public/get/table/{id}")
+    public ResponseEntity<TeamResponse> getTeam(@PathVariable int id){
+        List<Team> teams = teamService.getAllTeams();
+        List<TeamResponse> teamResponses = teams.stream().map(teamMapper::toTeamResponse).toList();
+        return ResponseEntity.ok(teamResponses.get(id));
+    }
+
+    @Operation(
             summary = "Create a team",
             description = "Returns a void"
     )
