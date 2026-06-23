@@ -1,0 +1,23 @@
+<div>
+  <div class="center">
+    <p>Турнирная таблица</p>
+  </div>
+  <div class="nav nav-pills bg-light" role="tablist">
+  <li class="nav-item">
+    <a class="nav-link active" data-bs-toggle="pill" routerLink="/home" routerLinkActive="active">Таблица</a> 
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" data-bs-toggle="pill" routerLink="/teams" routerLinkActive="active">Команды</a> 
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" data-bs-toggle="pill" routerLink="/games" routerLinkActive="active">Матчи</a> 
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" data-bs-toggle="pill" routerLink="/players" routerLinkActive="active">Игроки</a> 
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="http://localhost:8080/api/public/docs">Документация</a> 
+  </li>
+  </div>
+  <router-outlet></router-outlet>
+</div>

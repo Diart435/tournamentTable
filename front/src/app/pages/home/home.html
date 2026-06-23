@@ -1,0 +1,32 @@
+<div class="container">
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Место</th>
+                <th scope="col">Команда</th>
+                <th scope="col">Очки</th>
+                <th scope="col">Матчи</th>
+                <th scope="col">Победы</th>
+                <th scope="col">Поражения</th>
+                <th scope="col">Ничьи</th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (stat of table(); track $index; let i = $index) {
+            <tr>
+                <td>{{ i + 1 }}</td>
+                <td>{{ stat.title }}</td>
+                <td>{{ stat.teamScore }}</td>
+                <td>{{ stat.matches }}</td>
+                <td>{{ stat.wins }}</td>
+                <td>{{ stat.losses }}</td>
+                <td>{{ stat.draws }}</td>
+            </tr>
+            } @empty {
+            <tr>
+                <td colspan="7" class="text-center">Нет данных</td>
+            </tr>
+            }
+        </tbody>
+    </table>
+</div>

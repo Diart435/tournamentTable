@@ -1,0 +1,65 @@
+<div class="container mt-4">
+  <!-- Кнопка назад -->
+  <button class="btn btn-outline-secondary mb-4" (click)="goBack()">
+    ← Назад к списку
+  </button>
+
+  <!-- Загрузка -->
+  @if (loading()) {
+    <div class="text-center my-5">
+      <div class="spinner-border text-primary" role="status">
+        <span class="visually-hidden">Загрузка...</span>
+      </div>
+      <p class="mt-2">Загрузка данных команды...</p>
+    </div>
+  }
+
+  <!-- Ошибка -->
+  @if (error()) {
+    <div class="alert alert-danger text-center">
+      {{ error() }}
+      <button class="btn btn-sm btn-outline-danger ms-2" (click)="loadTeamData(teamId!)">
+        Повторить
+      </button>
+    </div>
+  }
+
+  <!-- Данные команды -->
+  @if (!loading() && !error() && team()) {
+    <div class="card shadow">
+      <div class="card-header bg-primary text-white">
+        <h2 class="mb-0">{{ team()?.title }}</h2>
+      </div>
+      <div class="card-body">
+        <div class="row">
+          <div class="col-md-6">
+            <h4>Статистика</h4>
+            <table class="table table-bordered">
+              <tbody>
+                <tr>
+                  <th>Очки</th>
+                  <td>{{ team()?.teamScore }}</td>
+                </tr>
+                <tr>
+                  <th>Матчи</th>
+                  <td>{{ team()?.matches }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          
+          <div class="col-md-6">
+            @if (team()?.players) {
+              <h4>Игроки</h4>
+              <ul class="list-group">
+                @for (player of team()?.players; track $index) {
+                  <li class="list-group-item">{{ player }}</li>
+                }
+              </ul>
+            }
+          </div>
+        </div>
+      </div>
+    </div>
+  }
+</div>

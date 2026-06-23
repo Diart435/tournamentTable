@@ -1,0 +1,19 @@
+<div class="container">
+  <div class="row">
+    @for (team of teamCards(); track $index; let i = $index) {
+      <div class="col-md-4 mb-3">
+        <div class="card card-hover" (click)="goToTeam(i)" style="cursor: pointer;">
+          <div class="card-body">
+            <h5 class="card-title">{{ team.title }}</h5>
+            <p class="card-text">
+              <span class="badge bg-primary">Очки: {{ team.teamScore }}</span>
+            </p>
+            <p class="card-text">
+              <small class="text-muted">Матчей: {{ team.matches }}</small>
+            </p>
+          </div>
+        </div>
+      </div>
+    }
+  </div>
+</div>

@@ -1,0 +1,22 @@
+<div class="container">
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Игрок</th>
+                <th scope="col">Команда</th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (player of players(); track $index; let i = $index) {
+            <tr>
+                <td>{{ player.name }}</td>
+                <td>{{ player.team }}</td>
+            </tr>
+            } @empty {
+            <tr>
+                <td colspan="7" class="text-center">Нет данных</td>
+            </tr>
+            }
+        </tbody>
+    </table>
+</div>
