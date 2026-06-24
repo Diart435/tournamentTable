@@ -1,0 +1,44 @@
+<div class="admin-container">
+    <header class="admin-header">
+        <div class="admin-header-left">
+            <h2>Админ панель</h2>
+            <span class="admin-badge">Tournament Table</span>
+        </div>
+        <div class="admin-header-right">
+            <button class="btn btn-outline-light btn-sm" (click)="logout()">Выйти</button>
+        </div>
+    </header>
+
+    <nav class="admin-nav">
+        <button 
+            class="admin-nav-btn" 
+            [class.active]="activeTab() === 'teams'" 
+            (click)="activeTab.set('teams')">
+            Команды
+        </button>
+        <button 
+            class="admin-nav-btn" 
+            [class.active]="activeTab() === 'players'" 
+            (click)="activeTab.set('players')">
+            Игроки
+        </button>
+        <button 
+            class="admin-nav-btn" 
+            [class.active]="activeTab() === 'games'" 
+            (click)="activeTab.set('games')">
+            Матчи
+        </button>
+    </nav>
+
+    <div class="admin-content">
+        @if (activeTab() === 'teams') {
+            <app-admin-teams></app-admin-teams>
+        }
+        @if (activeTab() === 'players') {
+            <app-admin-players></app-admin-players>
+        }
+        @if (activeTab() === 'games') {
+            <app-admin-games></app-admin-games>
+        }
+    </div>
+</div>

@@ -1,0 +1,51 @@
+<div class="login-container">
+    <div class="login-card">
+        <div class="login-header">
+            <h2>Вход в админ-панель</h2>
+            <p class="text-muted">Введите логин и пароль для доступа</p>
+        </div>
+
+        @if (error) {
+            <div class="alert alert-danger">
+                {{ error }}
+            </div>
+        }
+
+        <form (ngSubmit)="onSubmit()">
+            <div class="form-group">
+                <label>Логин</label>
+                <input 
+                    type="text" 
+                    class="form-control" 
+                    [(ngModel)]="login"
+                    name="login"
+                    placeholder="Введите логин"
+                    required
+                    autofocus>
+            </div>
+
+            <div class="form-group">
+                <label>Пароль</label>
+                <input 
+                    type="password" 
+                    class="form-control" 
+                    [(ngModel)]="password"
+                    name="password"
+                    placeholder="Введите пароль"
+                    required>
+            </div>
+
+            <button 
+                type="submit" 
+                class="btn btn-primary w-100"
+                [disabled]="loading">
+                @if (loading) {
+                    <span class="spinner-border spinner-border-sm me-2"></span>
+                    Вход...
+                } @else {
+                    Войти
+                }
+            </button>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,55 @@
+<div class="admin-section">
+    <h3>Управление игроками</h3>
+
+    <div class="admin-form">
+        <h5>Создать игрока</h5>
+        <div class="form-row">
+            <input class="form-control" placeholder="Имя игрока" [(ngModel)]="newPlayer.name">
+            <button class="btn btn-success" (click)="createPlayer()">Создать</button>
+        </div>
+    </div>
+
+    <div class="admin-form">
+        <h5>Трансфер</h5>
+        <div class="form-row">
+            <input class="form-control" placeholder="Имя игрока" [(ngModel)]="transfer.name">
+            <input class="form-control" placeholder="Из команды" [(ngModel)]="transfer.team1">
+            <input class="form-control" placeholder="В команду" [(ngModel)]="transfer.team2">
+            <button class="btn btn-warning" (click)="transferPlayer()">Трансфер</button>
+        </div>
+    </div>
+
+    <div class="admin-form">
+        <h5>Удалить из команды</h5>
+        <div class="form-row">
+            <input class="form-control" placeholder="Имя игрока" [(ngModel)]="removeFromTeam.name">
+            <input class="form-control" placeholder="Название команды" [(ngModel)]="removeFromTeam.title">
+            <button class="btn btn-danger" (click)="removeFromTeamAction()">Удалить</button>
+        </div>
+    </div>
+
+    <div class="admin-form">
+        <h5>Добавить в команду</h5>
+        <div class="form-row">
+            <input class="form-control" placeholder="Имя игрока" [(ngModel)]="addToTeam.name">
+            <input class="form-control" placeholder="Название команды" [(ngModel)]="addToTeam.title">
+            <button class="btn btn-primary" (click)="addToTeamAction()">Добавить</button>
+        </div>
+    </div>
+
+    <div class="admin-form">
+        <h5>Удалить игрока</h5>
+        <div class="form-row">
+            <input class="form-control" placeholder="Имя игрока" [(ngModel)]="deletePlayer.name">
+            <button class="btn btn-danger" (click)="deletePlayerAction()">Удалить</button>
+        </div>
+    </div>
+
+    <div class="admin-list">
+        <h5>Все игроки</h5>
+        <div class="admin-list-item" *ngFor="let player of players()">
+            <span class="list-item-title">{{ player.name }}</span>
+            <span class="list-item-badge">{{ player.team || 'Без команды' }}</span>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,74 @@
+.admin-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+.admin-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #1a1a2e;
+    padding: 16px 24px;
+    border-radius: 12px;
+    margin-bottom: 20px;
+}
+.admin-header-left {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+.admin-header h2 {
+    color: #fff;
+    margin: 0;
+    font-size: 1.4rem;
+}
+.admin-badge {
+    background: #ffd700;
+    color: #1a1a2e;
+    padding: 2px 12px;
+    border-radius: 20px;
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+.admin-header-right {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+.admin-user {
+    color: #b0b0b0;
+    font-size: 0.9rem;
+}
+.admin-nav {
+    display: flex;
+    gap: 8px;
+    background: #f8f9fa;
+    padding: 8px;
+    border-radius: 12px;
+    margin-bottom: 24px;
+}
+.admin-nav-btn {
+    padding: 10px 24px;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: #555;
+    background: transparent;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+.admin-nav-btn:hover {
+    background: #e9ecef;
+}
+.admin-nav-btn.active {
+    background: #1a1a2e;
+    color: #fff;
+}
+.admin-content {
+    background: #fff;
+    border-radius: 12px;
+    padding: 24px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}

@@ -1,0 +1,65 @@
+.admin-section {
+    padding: 8px 0;
+}
+.admin-section h3 {
+    font-size: 1.2rem;
+    color: #1a1a2e;
+    margin-bottom: 20px;
+}
+.admin-section h5 {
+    font-size: 0.9rem;
+    color: #555;
+    margin: 16px 0 8px;
+}
+.admin-form {
+    background: #f8f9fa;
+    padding: 16px;
+    border-radius: 8px;
+    margin-bottom: 16px;
+}
+.form-row {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    align-items: center;
+}
+.form-row .form-control {
+    flex: 1;
+    min-width: 120px;
+}
+.form-separator {
+    font-weight: 700;
+    color: #1a1a2e;
+}
+.admin-list {
+    margin-top: 12px;
+}
+.admin-list-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 16px;
+    background: #fff;
+    border: 1px solid #e9ecef;
+    border-radius: 8px;
+    margin-bottom: 6px;
+    transition: all 0.15s ease;
+}
+.admin-list-item:hover {
+    background: #f8f9fa;
+    border-color: #1a1a2e;
+}
+.list-item-title {
+    font-weight: 600;
+    color: #1a1a2e;
+    flex: 1;
+}
+.list-item-badge {
+    color: #6c757d;
+    font-size: 0.85rem;
+}
+.empty-state {
+    text-align: center;
+    color: #888;
+    padding: 20px;
+}

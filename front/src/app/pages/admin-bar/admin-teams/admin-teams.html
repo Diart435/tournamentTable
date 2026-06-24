@@ -1,0 +1,30 @@
+<div class="admin-section">
+    <h3>Управление командами</h3>
+
+    <div class="admin-form">
+        <div class="form-group">
+            <input
+                type="text"
+                class="form-control"
+                placeholder="Название команды"
+                [(ngModel)]="newTeam"
+                (keydown.enter)="createTeam()">
+        </div>
+        <button class="btn btn-success" (click)="createTeam()" [disabled]="!newTeam().trim()">
+            Добавить
+        </button>
+    </div>
+
+    <div class="admin-list">
+        <div class="admin-list-item" *ngFor="let team of teams()">
+            <span class="list-item-title">{{ team.title }}</span>
+            <span class="list-item-badge">Очки: {{ team.teamScore }}</span>
+            <button class="btn btn-danger btn-sm" (click)="deleteTeam(team.title)">
+                Удалить
+            </button>
+        </div>
+        <div *ngIf="teams().length === 0" class="empty-state">
+            <p>Команд пока нет</p>
+        </div>
+    </div>
+</div>

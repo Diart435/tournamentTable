@@ -1,0 +1,21 @@
+<div class="admin-section">
+    <h3>Управление матчами</h3>
+
+    <div class="admin-form">
+        <h5>Создать матч</h5>
+        <div class="form-row">
+            <input class="form-control" placeholder="Команда 1" [(ngModel)]="newGame.team1">
+            <input class="form-control" placeholder="Счет 1" type="number" [(ngModel)]="newGame.score1">
+            <span class="form-separator">vs</span>
+            <input class="form-control" placeholder="Счет 2" type="number" [(ngModel)]="newGame.score2">
+            <input class="form-control" placeholder="Команда 2" [(ngModel)]="newGame.team2">
+        </div>
+        <div class="form-row">
+            <input class="form-control" placeholder="Сезон (2026)" [(ngModel)]="newGame.season">
+            <input class="form-control" placeholder="Дата (ДД-ММ-ГГГГ)" [(ngModel)]="newGame.matchDate">
+            <button class="btn btn-success" (click)="createGame()" [disabled]="loading()">
+                {{ loading() ? 'Создание...' : 'Создать' }}
+            </button>
+        </div>
+    </div>
+</div>
