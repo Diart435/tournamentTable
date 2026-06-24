@@ -40,7 +40,6 @@ export class Team {
         this.team.set(response.data);
       })
       .catch(error => {
-        console.error('❌ Ошибка:', error);
         this.team.set(null);
       })
       .finally(() => {

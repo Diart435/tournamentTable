@@ -1,65 +1,104 @@
-<!-- pages/games/games.html -->
 <div class="container mt-4">
-  <div class="d-flex justify-content-between align-items-center mb-4">
-    <h2>Матчи</h2>
-    <button class="btn btn-outline-primary btn-sm" (click)="refresh()">
-      Обновить
-    </button>
-  </div>
+    <div class="games-header">
+        <div class="header-left">
+            <h2 class="mb-0">Матчи</h2>
+            
+            <div class="date-picker-wrapper">
+                <mat-form-field appearance="outline" class="date-picker-field">
+                    <mat-label>Выберите дату</mat-label>
+                    <input 
+                        matInput 
+                        [matDatepicker]="picker"
+                        [(ngModel)]="selectedDate"
+                        (dateChange)="onDateSelected($event.value)"
+                        placeholder="ДД-ММ-ГГГГ"
+                        readonly>
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                </mat-form-field>
+            </div>
 
-  <!-- Загрузка -->
-  @if (loading()) {
-    <div class="text-center my-5">
-      <div class="spinner-border text-primary" role="status">
-        <span class="visually-hidden">Загрузка...</span>
-      </div>
-      <p class="mt-2">Загрузка матчей...</p>
-    </div>
-  }
-
-  <!-- Ошибка -->
-  @if (error()) {
-    <div class="alert alert-danger text-center">
-      {{ error() }}
-      <button class="btn btn-sm btn-outline-danger ms-2" (click)="refresh()">
-        Повторить
-      </button>
-    </div>
-  }
-
-  <!-- Данные -->
-  @if (!loading() && !error()) {
-    @if (games().length > 0) {
-      <div class="table-responsive">
-        <table class="table table-striped table-hover">
-          <thead class="table-dark">
-            <tr>
-              <th>#</th>
-              <th>Команда 1</th>
-              <th>Счет</th>
-              <th>Команда 2</th>
-              <th>Сезон</th>
-              <th>Дата</th>
-            </tr>
-          </thead>
-          <tbody>
-            @for (game of games(); track $index; let i = $index) {
-              <tr>
-                <td>{{ i + 1 }}</td>
-                <td>{{ game.team1 }}</td>
-                <td class="fw-bold">{{ game.score1 }} : {{ game.score2 }}</td>
-                <td>{{ game.team2 }}</td>
-                <td>{{ game.season }}</td>
-                <td>{{ game.matchDate }}</td>
-              </tr>
+            @if (dateFilterActive()) {
+                <span class="badge-filter">
+                    {{ filterDateString() }}
+                    <button class="btn-close-filter" (click)="resetFilter()"></button>
+                </span>
             }
-          </tbody>
-        </table>
-      </div>
-    } @else {
-      <div class="text-center text-muted my-5">
-        <p>Нет данных о матчах</p>
-      </div>
+        </div>
+
+        <div class="header-right">
+            <button class="btn btn-outline-primary btn-sm" (click)="refresh()">
+                Обновить
+            </button>
+        </div>
+    </div>
+
+    @if (loading()) {
+        <div class="loading-spinner">
+            <div class="spinner-border text-primary" role="status">
+                <span class="visually-hidden">Загрузка...</span>
+            </div>
+            <p class="mt-2">Загрузка матчей...</p>
+        </div>
     }
-  }
+
+    @if (error()) {
+        <div class="alert alert-danger text-center">
+            {{ error() }}
+            <button class="btn btn-sm btn-outline-danger ms-2" (click)="refresh()">
+                Повторить
+            </button>
+        </div>
+    }
+
+    @if (!loading() && !error()) {
+        @if (games().length > 0) {
+            <div class="info-bar">
+                @if (dateFilterActive()) {
+                    <span>Найдено {{ games().length }} матчей на {{ filterDateString() }}</span>
+                } @else {
+                    <span>Всего {{ games().length }} матчей</span>
+                }
+            </div>
+
+            <div class="table-responsive">
+                <table class="table table-striped table-hover">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>#</th>
+                            <th>Команда 1</th>
+                            <th>Счет</th>
+                            <th>Команда 2</th>
+                            <th>Сезон</th>
+                            <th>Дата</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @for (game of games(); track $index; let i = $index) {
+                            <tr>
+                                <td>{{ i + 1 }}</td>
+                                <td>{{ game.team1 }}</td>
+                                <td class="score">{{ game.score1 }} : {{ game.score2 }}</td>
+                                <td>{{ game.team2 }}</td>
+                                <td>{{ game.season }}</td>
+                                <td>{{ formatDisplayDate(game.matchDate) }}</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        } @else {
+            <div class="empty-state">
+                @if (dateFilterActive()) {
+                    <h5>На {{ filterDateString() }} матчей нет</h5>
+                    <button class="btn btn-outline-primary btn-sm mt-3" (click)="resetFilter()">
+                        Показать все матчи
+                    </button>
+                } @else {
+                    <h5>Нет данных о матчах</h5>
+                    <p class="text-muted">Добавьте первые матчи через админ-панель</p>
+                }
+            </div>
+        }
+    }
 </div>

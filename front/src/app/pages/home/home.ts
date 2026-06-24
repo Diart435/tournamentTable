@@ -1,4 +1,3 @@
-// home.ts
 import { Component, OnInit, signal } from '@angular/core';
 import axios from 'axios';
 
